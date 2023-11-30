@@ -6,7 +6,8 @@
 int main()
 {
     setlocale(LC_ALL, "Ru");
-    using std::string;
+    using std::string; 
+    //for (short unsigned int z = 0);
     std::cout << "Введите строку: " << std::endl;
     string str;
     std::cin >> str;
