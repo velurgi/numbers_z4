@@ -2,22 +2,20 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cctype>
+#include <algorithm>
 
 int main()
 {
     setlocale(LC_ALL, "Ru");
     using std::string; 
-    //for (short unsigned int z = 0);
     std::cout << "Введите строку: " << std::endl;
     string str;
-    std::cin >> str;
+    getline(std::cin, str);
     int length = str.length();
     std::vector <string> chars;
     for (int i = 0; i < length; i++) {
         switch (str[i]) { //Проверка на все цифры
-        case ' ':
-            std::cout << "space out of spaces =)))" << std::endl<< std::endl<< std::endl<< std::endl;
-            break;
         case '1':
             chars.push_back("1");
             continue;
@@ -48,9 +46,9 @@ int main()
         case '0':
             chars.push_back("0");
             continue;
-        default:
+        /*default:
             std::cout << "default";
-            continue;
+            continue;*/
         } //Проверка на цифры и добавление их в массив chars // ЭТО ДЕРЬМО ЛОМАЕТСЯ ОБ ПРОБЕЛ, НАЙТИ СПОСОБ ЕГО УДАЛИТЬ
 
     }
