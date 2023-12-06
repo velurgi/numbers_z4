@@ -5,10 +5,29 @@
 #include <cctype>
 #include <algorithm>
 
+int megacheck(int zzz, int sizzzze) {
+    while (std::cin.fail() || zzz < 1 || zzz > sizzzze) {
+        std::cin.clear();
+        std::cin.ignore(1000, '\n');
+        std::cout << "Ошибка ввода данных." << std::endl << "Введите число заново: ";
+        std::cin >> zzz;
+    }
+    return zzz;
+}
+int onetwocheck(int zzz) {
+    while (std::cin.fail() || zzz < 1 || zzz > 2 ) {
+        std::cin.clear();
+        std::cin.ignore(1000, '\n');
+        std::cout << "Ошибка ввода данных." << std::endl << "Введите число заново: ";
+        std::cin >> zzz;
+    }
+    return zzz;
+}
+
 int main()
 {
     setlocale(LC_ALL, "Ru");
-    using std::string; 
+    using std::string;
     std::cout << "Введите строку: " << std::endl;
     string str;
     getline(std::cin, str);
@@ -46,22 +65,58 @@ int main()
         case '0':
             chars.push_back("0");
             continue;
-        /*default:
-            std::cout << "default";
-            continue;*/
-        } //Проверка на цифры и добавление их в массив chars // ЭТО ДЕРЬМО ЛОМАЕТСЯ ОБ ПРОБЕЛ, НАЙТИ СПОСОБ ЕГО УДАЛИТЬ
+
+        } 
 
     }
-    std::cout << "Номер цифры, которую желаете вывести: " << std::endl;
-    int askedNumber;
-    std::cin >> askedNumber;
-    std::cout << "Цифровой номер " << askedNumber << " является " << chars[askedNumber-1] << std::endl;
+    std::cout << "Вы хотите вывести одну цифру, или диапазон? (1 - одна, 2 - диапазон) :" << std::endl;
+    bool checkbox = false;
+    int checkn;
+    std::cin >> checkn;
+    checkn = onetwocheck(checkn);
+    if (checkn == 1) {
+        checkbox = true;
+    }
+    else
+    {
+        checkbox = false;
+    }
+    if (checkbox) {
+        std::cout << "Введите номер цифры, которую желаете вывести: " << std::endl;
+        int askedNumber;
+        std::cin >> askedNumber;
+        askedNumber = megacheck(askedNumber, chars.size());
+        std::cout << "Цифровой номер " << askedNumber << " является " << chars[askedNumber - 1] << std::endl;
+    }
+    else {
+        std::cout << "Введите начало диапазон цифр, которые желаете вывести: " << std::endl;
+        int askedNumber1;
+        std::cin >> askedNumber1;
+        askedNumber1 = megacheck(askedNumber1, chars.size());
+        while (askedNumber1 <= 0 || askedNumber1 > chars.size()) {
+            std::cout << "Первое число должно быть больше 0 и меньше количества всех чисел." << std::endl << "Введите его снова: ";
+            std::cin >> askedNumber1;
+        }
 
+        std::cout << "Введите конец диапазон цифр, которые желаете вывести: " << std::endl;
+        int askedNumber2;
+        std::cin >> askedNumber2;
+        askedNumber2 = megacheck(askedNumber2, chars.size());
+        while (askedNumber2 > chars.size()) {
+            std::cout << "Второе число должно быть меньше количества всех чисел." << std::endl << "Введите его снова: ";
+            std::cin >> askedNumber2;
+        }
+        if (askedNumber1 > askedNumber2) {
+            int x = askedNumber1;
+            askedNumber1 = askedNumber2;
+            askedNumber2 = x;
+        }
+            
+        std::cout << "Цифровой диапазон " << askedNumber1 << "-" << askedNumber2 << " соответствуем цифрам: " << std::endl;
+        for (unsigned int f = askedNumber1 - 1; f < askedNumber2; f++) {
+            std::cout << chars[f] << " ";
+        }
+    }
 
-
-
-
-    //std::cout << length;
-
-
+    return 0;
 }
